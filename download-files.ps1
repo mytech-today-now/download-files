@@ -76,7 +76,8 @@ try {
         } 
         else {
             # Create the directory if it doesn't already exist
-            $downloadsDir = [Environment]::GetFolderPath("Public") + "\myTechToday\downloads\"            if (!(Test-Path -Path $downloadsDir)) {
+            $downloadsDir = [Environment]::GetFolderPath("Public") + "\myTechToday\downloads\"            
+            if (!(Test-Path -Path $downloadsDir)) {
                 New-Item -ItemType Directory -Path $downloadsDir
             }
             # Create and test date specific dir
