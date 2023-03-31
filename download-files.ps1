@@ -95,7 +95,8 @@ try {
             $fileUrl = $file.Url
             $fileOutputPath = Join-Path $OutputDir $fileName
             
-            # Test if the file exists on the internet\n            $fileAvailable = $true
+            # Test if the file exists on the internet
+            $fileAvailable = $true
             try {
                 $null = Invoke-WebRequest $fileUrl -UseBasicParsing -ErrorAction Stop
             } catch {
@@ -106,7 +107,8 @@ try {
             if ($fileAvailable) {
                 # Testing if the file exists already
                 if (!(Test-Path -Path $fileOutputPath)) {
-                    # Download file to $OutputDir.\n                    Invoke-WebRequest $fileUrl -OutFile $fileOutputPath
+                    # Download file to $OutputDir.                    
+                    Invoke-WebRequest $fileUrl -OutFile $fileOutputPath
                     # Test and validate the file after downloading to ensure it was downloaded successfully
                     if (!(Test-Path -Path $fileOutputPath)) {
                         Write-Warning "Download of $fileUrl to $fileOutputPath failed!"
