@@ -1,4 +1,6 @@
-<#.SYNOPSIS
+<#
+
+.SYNOPSIS
 This is a PowerShell script that downloads files from a JSON file using the URLs provided in the JSON, and saves them in a specified directory.
 
 .EXAMPLE
@@ -20,8 +22,8 @@ The URL of the JSON file containing the download URLs.  JsonUrl file in the form
             "Url": "https://insidiousmeme.com/presenta/ai/powershell/ChatGPT.url"
         },
         {
-            "Name": "yakGPT.ico",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/yakGPT.ico"
+            "Name": "yakGPT.ico\",
+            "Url": \"https://insidiousmeme.com/presenta/ai/powershell/yakGPT.ico"
         },
         {
             "Name": "YakGPT.url",
@@ -63,34 +65,41 @@ param (
     [Parameter()]
     [string]$OutputDir
 )
-
 try {
-    # If the $OutputDir is null, use "myTechToday" environment variable as the directory. If "myTechToday" variable does not exist, use MyDocuments\Downloads.
+    # If the $OutputDir is null, use environment variable. 
     if (!$OutputDir) {
+        # check if myTechToday is set 
         if ($myTechToday = [Environment]::GetEnvironmentVariable("myTechToday")) {
             $today = Get-Date -format "yyyy-MM-dd"
+            # Check and create  directory
             $OutputDir = Join-Path $myTechToday "downloads\$today"
-        } else {
-            $OutputDir = [Environment]::GetFolderPath("MyDocuments") + "\Downloads"
+        } 
+        else {
+            # Create the directory if it doesn't already exist
+            $downloadsDir = [Environment]::GetFolderPath("Public") + "\myTechToday\downloads\"            if (!(Test-Path -Path $downloadsDir)) {
+                New-Item -ItemType Directory -Path $downloadsDir
+            }
+            # Create and test date specific dir
+            $today = Get-Date -format "yyyy-MM-dd"
+            $OutputDir = Join-Path $downloadsDir $today
+            if (!(Test-Path -Path $OutputDir)) {
+                New-Item -ItemType Directory -Path $OutputDir
+            }
+
+        }
+    } else {
+        #check and Create the directory, if it doesn't already exist
+        if (!(Test-Path -Path $OutputDir -PathType Container)) {
+            New-Item -ItemType Directory -Path $OutputDir
         }
     }
-
-    # Check if $OutputDir exists, otherwise create it.
-    if (-not (Test-Path $OutputDir -PathType Container)) {
-        Write-Verbose "Output directory not found. Creating $OutputDir"
-        $null = New-Item -ItemType Directory -Path $OutputDir
-    }
-
-    # Make web request and store the JSON data in $files variable
+    # Check if the web server is accessible, Check if the $json object is null or if it does not contain files array. 
     $json = Invoke-RestMethod $JsonUrl
-
-    # Check if the $json object is null or if it does not contain files array, if so output an error message.
     if (!$json.Files) {
         Write-Error "Error: JSON file may be empty or incorrectly formatted."
     }
     else {
         foreach ($file in $json.Files) {
-
             $fileName = $file.Name
             $fileUrl = $file.Url
             $fileOutputPath = Join-Path $OutputDir $fileName
@@ -119,12 +128,10 @@ try {
                     Write-Warning "File $fileName already exists in $OutputDir"
                 }
             } else {
-                Write-Warning "File $fileName unavailable for download from $fileUrl. Skipping..."
-            }
+                Write-Warning "File $fileName unavailable for download from $fileUrl. Skipping...\"            }
         }
     }
 }
-
 catch [System.Exception]{
     Write-Error "An error occurred: $($_.Exception.Message)"
     exit 1
