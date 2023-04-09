@@ -2,35 +2,19 @@
     "Files": [
         {
             "Name": "chatgpt-purple.ico",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/chatgpt-purple.ico"
+            "Url": "https://domain.com/chatgpt-purple.ico"
         },
         {
             "Name": "ChatGPT.url",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/ChatGPT.url"
+            "Url": "https://domain.com/ChatGPT.url"
         },
         {
             "Name": "yakGPT.ico",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/yakGPT.ico"
+            "Url": "https://domain.com/yakGPT.ico"
         },
         {
             "Name": "YakGPT.url",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/YakGPT.url"
-        },
-        {
-            "Name": "tools.ico",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/tools.ico"
-        },
-        {
-            "Name": "myTech.Today Tools.url",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/myTech.TodayTools.url"
-        },
-        {
-            "Name": "myTechToday-portrait-02.ico",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/myTechToday-portrait-02.ico"
-        },
-        {
-            "Name": "myTech.Today.url",
-            "Url": "https://insidiousmeme.com/presenta/ai/powershell/myTech.Today.url"
+            "Url": "https://domain.com/YakGPT.url"
         }
     ]
 }
